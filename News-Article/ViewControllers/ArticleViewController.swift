@@ -52,10 +52,11 @@ class ArticleViewController: UIViewController {
     }
     
     func loadArticle() {
-        let url = URL(string: webViewUrl)!
-        webView.load(URLRequest(url: url))
-        webView.navigationDelegate = self
-        webView.allowsBackForwardNavigationGestures = true
+        if let url = URL(string: webViewUrl) {
+            self.webView.load(URLRequest(url: url))
+            self.webView.navigationDelegate = self
+            self.webView.allowsBackForwardNavigationGestures = true
+        }
     }
 }
 

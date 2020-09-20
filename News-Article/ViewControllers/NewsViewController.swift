@@ -143,9 +143,7 @@ class NewsViewController: UIViewController {
 }
 
 extension NewsViewController:UISearchBarDelegate {
-    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchBar.text ?? "")
         self.loadArticlesOnSearchKeyword(keyword: searchBar.text ?? "")
     }
 }
