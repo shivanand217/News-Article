@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NewsArticle:Codable {
+struct NewsArticle:Codable, Equatable {
     
     private enum CodingKeys: String, CodingKey{
 //        case source
@@ -18,6 +18,10 @@ struct NewsArticle:Codable {
         case url
         case urlToImage
         case publishedAt
+    }
+    
+    static func <= (lhs: NewsArticle, rhs: NewsArticle) -> Bool {
+        return lhs.publishedAt! <= rhs.publishedAt!
     }
     
 //    var source:[String:String]?

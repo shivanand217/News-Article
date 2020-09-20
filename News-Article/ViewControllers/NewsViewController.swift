@@ -17,13 +17,15 @@ class NewsViewController: UIViewController {
     
     @IBAction func switchAction(_ sender: Any) {
         if sortSwitch.isOn {
+            sortArticlesAndReload(ascending: false)
             DispatchQueue.main.async {
-                self.sortLabel.text = "New to old"
+                self.sortLabel.text = "Newest to oldest"
             }
-        } else {
-            DispatchQueue.main.async {
-                self.sortLabel.text = "Old to new"
-            }
+            return
+        }
+        sortArticlesAndReload(ascending: true)
+        DispatchQueue.main.async {
+            self.sortLabel.text = "Oldest to newest"
         }
     }
 
@@ -31,16 +33,27 @@ class NewsViewController: UIViewController {
         super.viewDidLoad()
         
         self.newsTable.setNoDataPlaceholder("No News Yet.. :(")
-        
         setupTableView()
         setupGesture()
         
         DataManager.shared.getArticles { (data) in
+            self.sortArticlesAndReload(ascending: false)
+        }
+    }
+    
+    func sortArticlesAndReload(ascending:Bool) {
+        if ascending {
+            DataManager.shared.news = DataManager.shared.news.sorted { $0.publishedAt! < $1.publishedAt! }
             DispatchQueue.main.async {
                 self.newsTable.reloadData()
             }
-            self.newsTable.removeNoDataPlaceholder()
+            return
         }
+        DataManager.shared.news = DataManager.shared.news.sorted { $0.publishedAt! > $1.publishedAt! }
+        DispatchQueue.main.async {
+            self.newsTable.reloadData()
+        }
+        self.newsTable.removeNoDataPlaceholder()
     }
     
     func setupTableView() {
