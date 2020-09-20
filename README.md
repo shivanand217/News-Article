@@ -1,5 +1,5 @@
 # News-Article
-A news article app which utilize beautiful caching strategy for images and give users options to save articles and read it offline.
+A news article app which give users options to save articles and read it offline.
 
 Requirements:
   Minimum:
