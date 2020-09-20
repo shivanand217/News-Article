@@ -14,9 +14,15 @@ Requirements:
     * On clicking the article in home screen, load the article URL on this detail screen.
     * Implement offline storage for reading articles offline. User should select the articles which he/she wants to save offline.
 * The app should support iOS 12 and above versions.  
-        Good To Have:
+  
+  Good To Have:
 * Implement a feature to periodically fetch news when the application is in the background and present this content when the user opens the application.
 * Implement the Push Notification feature inside the app using any of the Providers.
 * Visually interactive design to list details.
 * Custom design, font, and icons to make the app more user friendly.
 * Use your imagination and add features that would make things easier for end-users.
+
+
+
+**Note**
+* I have used iOS NSCache for caching images. But it won't work in low memory scenarios as iOS by default uses cache eviction policy for NSCache in low memory conditions. You can test image caching by opening the application with network connection, kill it, again open the app with no internet connection. You can see images in the cells ar preloaded from cache.
