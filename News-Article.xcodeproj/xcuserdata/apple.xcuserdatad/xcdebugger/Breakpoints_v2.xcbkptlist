@@ -7,17 +7,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "284F7593-57C9-48BB-A24B-4103901E6819"
-            shouldBeEnabled = "No"
+            uuid = "A44DDCEF-83D6-48E9-8422-3BC77F08591E"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "News-Article/Managers/ApiManager/ApiManager.swift"
+            filePath = "News-Article/Managers/CacheManager/CacheManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "fetchData(completionBlock:)"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "loadImageUsingUrlString(urlString:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A44DDCEF-83D6-48E9-8422-3BC77F08591E - e85ee11f56779709"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "News_Article.CustomImageView.loadImageUsingUrlString(urlString: Swift.String) -&gt; ()"
+                  moduleName = "News-Article"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/assignments/News-Article/News-Article/Managers/CacheManager/CacheManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "1008">
+               </Location>
+               <Location
+                  uuid = "A44DDCEF-83D6-48E9-8422-3BC77F08591E - 6b00e6f29d2b8def"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in News_Article.CustomImageView.loadImageUsingUrlString(urlString: Swift.String) -&gt; ()"
+                  moduleName = "News-Article"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/apple/Desktop/assignments/News-Article/News-Article/Managers/CacheManager/CacheManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "32"
+                  endingLineNumber = "32"
+                  offsetFromSymbolStart = "364">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

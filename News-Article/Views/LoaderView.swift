@@ -20,7 +20,7 @@ class Indicator:UIView {
         blurImg.backgroundColor = UIColor.black
         blurImg.isUserInteractionEnabled = true
         blurImg.alpha = 0.5
-        indicator.activityIndicatorViewStyle = .whiteLarge
+        indicator.style = .whiteLarge
         indicator.center = blurImg.center
         indicator.startAnimating()
         indicator.color = .red

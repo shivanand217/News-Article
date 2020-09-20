@@ -94,9 +94,4 @@ class ApiManager:NSObject {
         }
     }
     
-    final func loadImage(url: URL, item: Item, completion:@escaping(Item, UIImage?) -> Swift.Void)) {
-    
-        
-    }
-    
 }

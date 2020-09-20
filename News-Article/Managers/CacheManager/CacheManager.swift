@@ -8,15 +8,26 @@
 import Foundation
 import UIKit
 
-extension UIImageView {
+class CustomImageView: UIImageView {
+    
+    var imageUrlString:String?
     
     func loadImageUsingUrlString(urlString:String) {
         
         let url = URL(string: urlString)
+        self.image = nil
+        
+        let imageCache = CacheManager.publicCache.imageCache
+        
+        let urlStringAsAnyObject = urlString as AnyObject
+        if let imageFromCache = imageCache.object(forKey: urlStringAsAnyObject) as? UIImage {
+            if self.imageUrlString == urlString {
+                self.image = imageFromCache
+            }
+            return
+        }
+        
         URLSession.shared.dataTask(with: url!) { (data, response, error) in
-            
-            // blank image
-            self.image = nil
             
             guard error == nil else {
                 print(error.debugDescription)
@@ -24,21 +35,23 @@ extension UIImageView {
             }
             
             DispatchQueue.main.async {
-                self.image = UIImage(data: data!)
+                let imageToCache = UIImage(data: data!)
+                if self.imageUrlString == urlString {
+                    self.image = imageToCache
+                }
+                imageCache.setObject(imageToCache!, forKey: urlStringAsAnyObject)
             }
-        }
+            
+        }.resume()
     }
 }
 
 class CacheManager:NSObject {
     
     public static let publicCache:CacheManager = CacheManager()
-    
-    var cache:NSCache<AnyObject, AnyObject>!
+    let imageCache = NSCache<AnyObject, AnyObject>()
     
     override init() {
         super.init()
     }
-    
-    
 }

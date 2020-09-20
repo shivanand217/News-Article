@@ -15,8 +15,6 @@ class NewsViewController: UIViewController {
     @IBOutlet weak var sortSwitch: UISwitch!
     @IBOutlet weak var sortLabel: UILabel!
     
-    var task: URLSessionDownloadTask!
-    
     @IBAction func switchAction(_ sender: Any) {
         if sortSwitch.isOn {
             DispatchQueue.main.async {
@@ -36,9 +34,6 @@ class NewsViewController: UIViewController {
         
         setupTableView()
         setupGesture()
-        
-        task = URLSessionDownloadTask()
-        cache = NSCache()
         
         DataManager.shared.getArticles { (data) in
             DispatchQueue.main.async {
@@ -93,29 +88,7 @@ extension NewsViewController:UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! NewsTableViewCell
-        
         cell.setupCell(news: DataManager.shared.news[indexPath.row])
-        
-        if (self.cache.object(forKey: (indexPath as NSIndexPath).row as AnyObject) != nil){
-            print("Cached image used, no need to download it")
-            cell.articleImage.image = self.cache.object(forKey: (indexPath as NSIndexPath).row as AnyObject) as? UIImage
-        } else {
-            let stringUrl = DataManager.shared.news[indexPath.row].urlToImage!
-            let url:URL = URL(string: stringUrl)!
-            task = session.downloadTask(with: url, completionHandler: { (location, response, error) -> Void in
-                
-                if let data = try? Data(contentsOf: url){
-                    
-                    DispatchQueue.main.async(execute: { () -> Void in
-                        let img:UIImage! = UIImage(data: data)
-                        cell.articleImage.image = img
-                        self.cache.setObject(img, forKey: (indexPath as NSIndexPath).row as AnyObject)
-                    })
-                }
-            })
-            task.resume()
-        }
-        
         return cell
     }
     
