@@ -50,6 +50,7 @@ class ApiManager:NSObject {
                 
             if let error = error {
                 completionBlock(nil, error)
+                return
             } else if
               let data = data,
               let response = response as? HTTPURLResponse,
@@ -57,17 +58,19 @@ class ApiManager:NSObject {
                 response.statusCode == 200 {
                     do {
                         let res = try JSONDecoder().decode(News.self, from: data)
-                        
                         DispatchQueue.main.async {
                             completionBlock(res, error)
+                            return
                         }
                     } catch let error as NSError {
                         print("Decode Error: \(error.debugDescription)")
                         completionBlock(nil, error)
+                        return
                     }
                 }
                 DispatchQueue.main.async {
                     completionBlock(nil, error)
+                    return
                 }
           }
             

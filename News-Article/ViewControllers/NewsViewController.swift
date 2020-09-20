@@ -16,6 +16,8 @@ class NewsViewController: UIViewController {
     @IBOutlet weak var sortSwitch: UISwitch!
     @IBOutlet weak var sortLabel: UILabel!
     
+    var dataSaved = false
+    
     @IBAction func switchAction(_ sender: Any) {
         if sortSwitch.isOn {
             sortArticlesAndReload(ascending: false)
@@ -55,6 +57,9 @@ class NewsViewController: UIViewController {
     }
     
     func saveToCoreData(news:[NewsArticle]) {
+        guard dataSaved == false else {
+            return
+        }
         var dict:[String:String] = [:]
         for article in news {
             dict = [:]
@@ -66,6 +71,7 @@ class NewsViewController: UIViewController {
             dict["publishedAt"] = article.publishedAt
             CoreDataManager.shared.createRecord(records: dict, entityName: EntityName.article.getEntityName())
         }
+        dataSaved = true
     }
     
     func sortArticlesAndReload(ascending:Bool) {
