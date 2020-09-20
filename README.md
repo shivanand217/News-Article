@@ -25,7 +25,7 @@ Requirements:
 
 
 **Note**
-* I have used iOS NSCache for caching images. iOS by default uses cache eviction policy for NSCache in low memory conditions, we don't have to take care of memory issues by ourselves. But this is temporary, have used Core data for storing articles instead. You can test image caching by opening the application with network connection, kill it, again open the app with no internet connection. You can see images in the cells are preloaded from cache.
+* I have used iOS NSCache for caching images. iOS by default uses cache eviction policy for NSCache in low memory conditions, we don't have to take care of memory issues by ourselves. But this is temporary, though have used Core data for storing articles. You can test image caching by opening the application with network connection, kill it, again open the app with no internet connection. You can see images in the cells are preloaded from cache.
 
 **Working Feature**
 * Show articles on home screen.
