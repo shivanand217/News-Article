@@ -35,4 +35,4 @@ Requirements:
 * See article description(Online).
 
 **Missing**
-* Web view articles are not cached. Yet to be done.
+* Articles details(Web views) are not stored in storage.
