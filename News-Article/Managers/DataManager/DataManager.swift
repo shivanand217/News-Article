@@ -16,6 +16,8 @@ class DataManager:NSObject {
     var news:[NewsArticle] = []
     var articleImages:[UIImage?] = []
     
+    var newsCopy:[NewsArticle] = []
+    
     override init() {
         super.init()
     }

@@ -69,6 +69,7 @@
                     <navigationItem key="navigationItem" title="News" id="yoP-5g-7So"/>
                     <connections>
                         <outlet property="newsTable" destination="Ad7-HE-W4y" id="54M-KI-0Mx"/>
+                        <outlet property="searchBar" destination="tAK-x5-QZL" id="Ypc-DS-iaQ"/>
                         <outlet property="sortLabel" destination="smq-44-sNg" id="d0r-wE-FuJ"/>
                         <outlet property="sortSwitch" destination="awU-rc-wma" id="3WQ-qt-3pg"/>
                         <segue destination="uGX-eO-8f6" kind="show" id="n7G-6M-YgZ"/>

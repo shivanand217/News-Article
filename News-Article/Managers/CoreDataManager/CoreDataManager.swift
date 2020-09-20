@@ -63,14 +63,6 @@ class CoreDataManager:NSObject {
 
         do {
             let result = try managedContext.fetch(fetchRequest)
-            for data in result as! [NSManagedObject] {
-                print(data.value(forKey: "author") as? String ?? "")
-                print(data.value(forKey: "url") as? String ?? "")
-                print(data.value(forKey: "articleDescription") as? String ?? "")
-                print(data.value(forKey: "publishedAt") as? String ?? "")
-                print(data.value(forKey: "title") as? String ?? "")
-                print(data.value(forKey: "urlToImage") as? String ?? "")
-            }
             return result as! [NSManagedObject]
         } catch let nsError as NSError {
 

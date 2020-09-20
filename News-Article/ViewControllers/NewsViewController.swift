@@ -16,6 +16,8 @@ class NewsViewController: UIViewController {
     @IBOutlet weak var sortSwitch: UISwitch!
     @IBOutlet weak var sortLabel: UILabel!
     
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     var dataSaved = false
     
     @IBAction func switchAction(_ sender: Any) {
@@ -38,6 +40,7 @@ class NewsViewController: UIViewController {
         self.newsTable.setNoDataPlaceholder("No News Yet.. :(")
         
         self.setupTableView()
+        self.setupSearchBar()
 //        self.setupGesture()
         
         self.fetchDataFromManager()
@@ -47,6 +50,7 @@ class NewsViewController: UIViewController {
         let dict:[NewsArticle] = DataManager.shared.getArticlesFromCoreData(entityName: EntityName.article.getEntityName())
         if dict.count != 0 {
             DataManager.shared.news = dict
+            DataManager.shared.newsCopy = DataManager.shared.news
             self.sortArticlesAndReload(ascending: false)
         } else {
             DataManager.shared.getArticlesFromApi { (data) in
@@ -60,6 +64,7 @@ class NewsViewController: UIViewController {
         guard dataSaved == false else {
             return
         }
+        DataManager.shared.newsCopy = DataManager.shared.news
         var dict:[String:String] = [:]
         for article in news {
             dict = [:]
@@ -95,6 +100,10 @@ class NewsViewController: UIViewController {
         newsTable.register(UINib(nibName: "NewsTableViewCell", bundle: nil), forCellReuseIdentifier: "cell")
     }
     
+    func setupSearchBar() {
+        searchBar.delegate = self
+    }
+    
     func setupGesture() {
         let gesture = UILongPressGestureRecognizer(target: self, action: #selector(longTapGesture(_:_:)))
         gesture.minimumPressDuration = 2.0
@@ -122,7 +131,23 @@ class NewsViewController: UIViewController {
         }
     }
     
-    func getArticles() {}
+    func loadArticlesOnSearchKeyword(keyword:String) {
+        DataManager.shared.news = DataManager.shared.newsCopy
+        if keyword.count != 0 {
+            DataManager.shared.news = DataManager.shared.news.filter({ (article) -> Bool in
+                (article.author?.contains(keyword) ?? false)
+            })
+        }
+        self.sortArticlesAndReload(ascending: false)
+    }
+}
+
+extension NewsViewController:UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print(searchBar.text ?? "")
+        self.loadArticlesOnSearchKeyword(keyword: searchBar.text ?? "")
+    }
 }
 
 extension NewsViewController:UIGestureRecognizerDelegate {}
