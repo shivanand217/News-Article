@@ -38,19 +38,14 @@ class NewsViewController: UIViewController {
         self.setupTableView()
 //        self.setupGesture()
         
-        DataManager.shared.getArticlesFromApi { (data) in
-            self.saveToCoreData(news: data)
-            self.sortArticlesAndReload(ascending: false)
-        }
-        
-//        self.fetchDataFromManager()
+        self.fetchDataFromManager()
     }
     
     func fetchDataFromManager() {
-        
-        let dict:[NSManagedObject] = CoreDataManager.shared.fetchRecord(entityName: EntityName.article.getEntityName(), predicate: nil, sortDescriptors: nil, fetchLimit: nil)
+        let dict:[NewsArticle] = DataManager.shared.getArticlesFromCoreData(entityName: EntityName.article.getEntityName())
         if dict.count != 0 {
-            
+            DataManager.shared.news = dict
+            self.sortArticlesAndReload(ascending: false)
         } else {
             DataManager.shared.getArticlesFromApi { (data) in
                 self.saveToCoreData(news: data)
@@ -63,6 +58,7 @@ class NewsViewController: UIViewController {
         var dict:[String:String] = [:]
         for article in news {
             dict = [:]
+            dict["author"] = article.author
             dict["title"] = article.title
             dict["articleDescription"] = article.description
             dict["url"] = article.url

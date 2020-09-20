@@ -46,7 +46,8 @@ class DataManager:NSObject {
     func convertManagedObjectToModel(news:[NSManagedObject]) -> [NewsArticle]{
         var dict:[NewsArticle] = []
         for article in news {
-            
+            let newArticle = NewsArticle(author: article.value(forKey: "author") as! String, title: article.value(forKey: "title") as! String, description: article.value(forKey: "articleDescription") as! String, url: article.value(forKey: "url") as! String, urlToImage: article.value(forKey: "urlToImage") as! String, publishedAt: article.value(forKey: "publishedAt")  as! String)
+            dict.append(newArticle)
         }
         return dict
     }
