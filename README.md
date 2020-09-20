@@ -25,4 +25,4 @@ Requirements:
 
 
 **Note**
-* I have used iOS NSCache for caching images. But it won't work in low memory scenarios as iOS by default uses cache eviction policy for NSCache in low memory conditions. You can test image caching by opening the application with network connection, kill it, again open the app. You can see images in the cells ar preloaded from cache.
+* I have used iOS NSCache for caching images. But it won't work in low memory scenarios as iOS by default uses cache eviction policy for NSCache in low memory conditions. You can test image caching by opening the application with network connection, kill it, again open the app with no internet connection. You can see images in the cells ar preloaded from cache.
