@@ -39,6 +39,7 @@ class ArticleViewController: UIViewController {
         progressView.sizeToFit()
         
         self.webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
+        self.webView.load
         
         loadArticle()
     }

@@ -22,6 +22,12 @@ class DataManager:NSObject {
     
     func getArticlesFromApi(completion:@escaping (_ data:[NewsArticle])->()) {
         ApiManager.shared.fetchData { (data, error) in
+            
+            guard error == nil else {
+                completion([])
+                return
+            }
+            
             if let news = data {
                 for article in news.articles ?? [] {
                     self.news.append(article)
@@ -31,8 +37,18 @@ class DataManager:NSObject {
         }
     }
     
-    func getArticlesFromCoreData(entityName:String, completion:@escaping (_ data:[NewsArticle])->()) {
-        
-        let dict:[String:String] = CoreDataManager.shared.fetchRecord(entityName: EntityName.article.getEntityName(), predicate: nil, sortDescriptors: nil, fetchLimit: nil)
+    func getArticlesFromCoreData(entityName:String) -> [NewsArticle] {
+        let dict:[NSManagedObject] = CoreDataManager.shared.fetchRecord(entityName: EntityName.article.getEntityName(), predicate: nil, sortDescriptors: nil, fetchLimit: nil)
+        let news = self.convertManagedObjectToModel(news: dict)
+        return news
     }
+    
+    func convertManagedObjectToModel(news:[NSManagedObject]) -> [NewsArticle]{
+        var dict:[NewsArticle] = []
+        for article in news {
+            
+        }
+        return dict
+    }
+    
 }

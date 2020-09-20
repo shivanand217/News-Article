@@ -11,7 +11,7 @@ struct NewsArticle:Codable, Equatable {
     
     private enum CodingKeys: String, CodingKey{
 //        case source
-//        case author
+        case author
 //        case content
         case title
         case description
@@ -25,7 +25,7 @@ struct NewsArticle:Codable, Equatable {
     }
     
 //    var source:[String:String]?
-//    var author:String?
+    var author:String?
 //    var content:String?
     var title:String?
     var description:String?
@@ -35,8 +35,7 @@ struct NewsArticle:Codable, Equatable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-//        source = try container.decodeIfPresent([String:String].self, forKey: .source) ?? [:]
-//        author = try container.decodeIfPresent(String.self, forKey: .author) ?? ""
+        author = try container.decodeIfPresent(String.self, forKey: .author) ?? ""
         title = try container.decodeIfPresent(String.self, forKey: .title) ?? ""
         description = try container.decodeIfPresent(String.self, forKey: .description) ?? ""
         url = try container.decodeIfPresent(String.self, forKey: .url) ?? ""

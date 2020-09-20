@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 let defUrl = "http://techcrunch.com/2020/02/10/equity-monday-cherre-raises-16m-lyfts-critical-earnings-and-weworks-profit-hopes/"
 
@@ -33,14 +34,28 @@ class NewsViewController: UIViewController {
         super.viewDidLoad()
         
         self.newsTable.setNoDataPlaceholder("No News Yet.. :(")
-        setupTableView()
-        setupGesture()
         
+        self.setupTableView()
+//        self.setupGesture()
         
-        
-        DataManager.shared.getArticles { (data) in
+        DataManager.shared.getArticlesFromApi { (data) in
             self.saveToCoreData(news: data)
             self.sortArticlesAndReload(ascending: false)
+        }
+        
+//        self.fetchDataFromManager()
+    }
+    
+    func fetchDataFromManager() {
+        
+        let dict:[NSManagedObject] = CoreDataManager.shared.fetchRecord(entityName: EntityName.article.getEntityName(), predicate: nil, sortDescriptors: nil, fetchLimit: nil)
+        if dict.count != 0 {
+            
+        } else {
+            DataManager.shared.getArticlesFromApi { (data) in
+                self.saveToCoreData(news: data)
+                self.sortArticlesAndReload(ascending: false)
+            }
         }
     }
     
