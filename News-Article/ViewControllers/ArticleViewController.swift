@@ -12,49 +12,41 @@ class ArticleViewController: UIViewController {
 
     @IBOutlet weak var webView: WKWebView!
     var webViewUrl:String = ""
+    
+    var progressView:UIProgressView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        progressView = UIProgressView(progressViewStyle: .default)
+        progressView.sizeToFit()
+        
+        self.webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
         loadArticle()
     }
-    
-    override func loadView() {
-        super.loadView()
-        webView = WKWebView()
-        webView.navigationDelegate = self
-        view = webView
+
+    // Observe value
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "estimatedProgress" {
+            print(self.webView.estimatedProgress)
+            self.progressView.progress = Float(self.webView.estimatedProgress);
+        }
     }
     
     func loadArticle() {
-        // urls in json are http that's why UrlSession not able t
-        let url = URL(string: "https://www.youtube.com/news")!
+        let url = URL(string: webViewUrl)!
         webView.load(URLRequest(url: url))
+        webView.navigationDelegate = self
         webView.allowsBackForwardNavigationGestures = true
     }
 }
 
 extension ArticleViewController:WKNavigationDelegate {
     
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        var action: WKNavigationActionPolicy?
-
-        defer {
-            decisionHandler(action ?? .allow)
-        }
-
-        guard let url = navigationAction.request.url else { return }
-        print("decidePolicyFor - url: \(url)")
-
-        //Uncomment below code if you want to open URL in safari
-//        if navigationAction.navigationType == .linkActivated, url.absoluteString.hasPrefix("https://developer.apple.com/") {
-//            action = .cancel  // Stop in WebView
-//            UIApplication.shared.open(url)
-//        }
-    }
-    
     //Equivalent of webViewDidStartLoad:
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         print("didStartProvisionalNavigation - webView.url: \(String(describing: webView.url?.description))")
+        
     }
     
     //Equivalent of didFailLoadWithError:
