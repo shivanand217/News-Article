@@ -15,14 +15,18 @@ class CustomImageView: UIImageView {
     func loadImageUsingUrlString(urlString:String) {
         
         let url = URL(string: urlString)
-        self.image = nil
+        DispatchQueue.main.async {
+            self.image = nil
+        }
         
         let imageCache = CacheManager.publicCache.imageCache
         
         let urlStringAsAnyObject = urlString as AnyObject
         if let imageFromCache = imageCache.object(forKey: urlStringAsAnyObject) as? UIImage {
             if self.imageUrlString == urlString {
-                self.image = imageFromCache
+                DispatchQueue.main.async {
+                    self.image = imageFromCache
+                }
             }
             return
         }
@@ -39,7 +43,10 @@ class CustomImageView: UIImageView {
                 if self.imageUrlString == urlString {
                     self.image = imageToCache
                 }
-                imageCache.setObject(imageToCache!, forKey: urlStringAsAnyObject)
+                
+                if let cacheImg = imageToCache {
+                    imageCache.setObject(cacheImg, forKey: urlStringAsAnyObject)
+                }
             }
             
         }.resume()
