@@ -1,8 +1,7 @@
 # News-Article
 A news article app which give users options to save articles and read it offline.
 
-Requirements:
-  Minimum:
+**Requirements:  Minimum:**
 * Use of Web API to fetch news details. API - https://moedemo-93e2e.firebaseapp.com/assignment/NewsApp/articles.json.
 * Make sure to persist the data obtained from the above API, for the offline scenario.
 * Home Screen -
@@ -15,7 +14,7 @@ Requirements:
     * Implement offline storage for reading articles offline. User should select the articles which he/she wants to save offline.
 * The app should support iOS 12 and above versions.  
   
-  Good To Have:
+  **Good To Have:**
 * Implement a feature to periodically fetch news when the application is in the background and present this content when the user opens the application.
 * Implement the Push Notification feature inside the app using any of the Providers.
 * Visually interactive design to list details.
