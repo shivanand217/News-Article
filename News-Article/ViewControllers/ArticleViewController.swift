@@ -14,6 +14,23 @@ class ArticleViewController: UIViewController {
     var webViewUrl:String = ""
     
     var progressView:UIProgressView!
+    
+    @IBAction func saveArticleAction(_ sender: Any) {
+        showAlert()
+    }
+    
+    func showAlert() {
+        DispatchQueue.main.async {
+            let alertVc:UIAlertController = UIAlertController(title: "Want to save this article?", message: "Tap Yes to save this news article.", preferredStyle: .alert)
+            let yesAlertAction = UIAlertAction(title: "Yes", style: .default) { (action) in
+                
+            }
+            let noAlertAction = UIAlertAction(title: "No", style: .default) { (action) in }
+            alertVc.addAction(yesAlertAction)
+            alertVc.addAction(noAlertAction)
+            self.present(alertVc, animated: true, completion: nil)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +39,7 @@ class ArticleViewController: UIViewController {
         progressView.sizeToFit()
         
         self.webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
+        
         loadArticle()
     }
 

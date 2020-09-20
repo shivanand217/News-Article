@@ -105,7 +105,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="mBc-qz-RBF">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="square.and.arrow.up" catalog="system" id="R42-qV-3XA"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="square.and.arrow.up" catalog="system" id="R42-qV-3XA">
+                            <connections>
+                                <action selector="saveArticleAction:" destination="uGX-eO-8f6" id="HAL-8v-fwv"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="webView" destination="JXx-3d-Jxd" id="rwo-j9-25s"/>

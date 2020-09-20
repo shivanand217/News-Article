@@ -9,6 +9,16 @@ import Foundation
 import CoreData
 import UIKit
 
+enum EntityName {
+    case article
+    func getEntityName() -> String {
+        switch self {
+        case .article:
+            return "Article"
+        }
+    }
+}
+
 class CoreDataManager:NSObject {
 
     static let shared:CoreDataManager = CoreDataManager()
@@ -16,14 +26,13 @@ class CoreDataManager:NSObject {
         super.init()
     }
 
-    func createRecord(forEntity entity:NSEntityDescription, records:[String:String], entityName:String) {
+    func createRecord(records:[String:String], entityName:String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
         else { return }
 
         let managedContext = appDelegate.persistentContainer.viewContext
         guard let entity =  NSEntityDescription.entity(forEntityName: entityName, in: managedContext) else { return }
-
-        // get managed object of that entity
+        
         let managedObjectOfEntity = NSManagedObject(entity: entity, insertInto: managedContext)
 
         for (key, value) in records {
@@ -32,6 +41,7 @@ class CoreDataManager:NSObject {
 
         do {
             try managedContext.save()
+            print("CoreData:article saved..")
         } catch let error as NSError {
 
             #if DEBUG
@@ -43,10 +53,10 @@ class CoreDataManager:NSObject {
         }
     }
 
-    func fetchRecord(forEntity entity:NSEntityDescription, entityName:String, predicate:NSPredicate, sortDescriptors:[NSSortDescriptor], fetchLimit:Int) {
+    func fetchRecord(entityName:String, predicate:NSPredicate?, sortDescriptors:[NSSortDescriptor]?, fetchLimit:Int?) -> [NSManagedObject] {
 
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        else { return }
+        else { return [] }
 
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
@@ -54,11 +64,13 @@ class CoreDataManager:NSObject {
         do {
             let result = try managedContext.fetch(fetchRequest)
             for data in result as! [NSManagedObject] {
-                print(data.value(forKey: "author") as! String)
+                print(data.value(forKey: "url") as! String)
                 print(data.value(forKey: "articleDescription") as! String)
                 print(data.value(forKey: "publishedAt") as! Int64)
                 print(data.value(forKey: "title") as! String)
+                print(data.value(forKey: "urlToImage") as! String)
             }
+            return result as! [NSManagedObject]
         } catch let nsError as NSError {
 
             #if DEBUG
@@ -67,24 +79,11 @@ class CoreDataManager:NSObject {
             #else
                 print("CoreData: Failed to fetch Request \(nsError.description)")
             #endif
+            return []
         }
     }
 
-    func updateRecord(forEntity entity:NSEntityDescription, records:[Dictionary<String,Any>], entityName:String) {
-
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        else { return }
-
-        // create context from persistent container
-        let managedContext = appDelegate.persistentContainer.viewContext
-
-        let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: entityName)
-
-    }
-
-    func deleteRecord(forEntity entity:NSEntityDescription) {
-
-    }
+    func deleteRecord(forEntity entity:NSEntityDescription) {}
 
 }
 

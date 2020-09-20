@@ -36,8 +36,24 @@ class NewsViewController: UIViewController {
         setupTableView()
         setupGesture()
         
+        
+        
         DataManager.shared.getArticles { (data) in
+            self.saveToCoreData(news: data)
             self.sortArticlesAndReload(ascending: false)
+        }
+    }
+    
+    func saveToCoreData(news:[NewsArticle]) {
+        var dict:[String:String] = [:]
+        for article in news {
+            dict = [:]
+            dict["title"] = article.title
+            dict["articleDescription"] = article.description
+            dict["url"] = article.url
+            dict["urlToImage"] = article.urlToImage
+            dict["publishedAt"] = article.publishedAt
+            CoreDataManager.shared.createRecord(records: dict, entityName: EntityName.article.getEntityName())
         }
     }
     

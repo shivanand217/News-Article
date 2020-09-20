@@ -27,6 +27,7 @@
 		18226BEB251658B800F69B70 /* No-Image-Available.png in Resources */ = {isa = PBXBuildFile; fileRef = 18226BEA251658B800F69B70 /* No-Image-Available.png */; };
 		185902B22517103400B7BA52 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185902B12517103400B7BA52 /* CacheManager.swift */; };
 		185902B425172F6300B7BA52 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185902B325172F6300B7BA52 /* CustomImageView.swift */; };
+		185902B62517911400B7BA52 /* URLCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185902B52517911400B7BA52 /* URLCacheManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		18226BEA251658B800F69B70 /* No-Image-Available.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "No-Image-Available.png"; sourceTree = "<group>"; };
 		185902B12517103400B7BA52 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		185902B325172F6300B7BA52 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
+		185902B52517911400B7BA52 /* URLCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLCacheManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				185902B12517103400B7BA52 /* CacheManager.swift */,
+				185902B52517911400B7BA52 /* URLCacheManager.swift */,
 			);
 			path = CacheManager;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 				18226BD1251615CB00F69B70 /* ApiManager.swift in Sources */,
 				18226B9D2516144C00F69B70 /* AppDelegate.swift in Sources */,
 				18226BE425163B3F00F69B70 /* CoreDataManager.swift in Sources */,
+				185902B62517911400B7BA52 /* URLCacheManager.swift in Sources */,
 				185902B425172F6300B7BA52 /* CustomImageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
